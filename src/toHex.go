@@ -1,6 +1,6 @@
 /*
 *	FILE			: toHex.go
-*	PROJECT			: RGBToHex
+*	PROJECT			: RGB-to-Hex
 *	PROGRAMMER		: Daniel Pieczewski
 *	FIRST VERSION	: 2019-12-01
 *	DESCRIPTION		:
