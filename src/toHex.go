@@ -16,10 +16,14 @@ import (
 )
 
 //Constants
-//minColourValue = Minimum a colour can be in RGB format
-//maxColourValue = Maximum a colour can be in RGB format
+//MinColourValue = Minimum a colour can be in RGB format
+//MaxColourValue = Maximum a colour can be in RGB format
+//BadArgs = Error code for the wrong number of arguments
+//BadValue = Error code for an invalid R, G, or B value
 const constMinColourValue int = 0
 const constMaxColourValue int = 255
+const constBadArgs int = -1
+const constBadValue int = -2
 
 func main() {
 	//Find argc
@@ -28,7 +32,7 @@ func main() {
 	if argc != 4 {
 		fmt.Printf("Error! Incorrect number of arguments!\n")
 		fmt.Printf("Usage: toHex <r> <g> <b>\n")
-		os.Exit(0)
+		os.Exit(constBadArgs)
 	}
 
 	//Get the cmd arguments and convert to ints
@@ -41,19 +45,19 @@ func main() {
 	//Return an error is any of them are invalid
 	if !checkRange(red, constMinColourValue, constMaxColourValue) {
 		fmt.Printf("Red value is invalid!\n")
-		os.Exit(0)
+		os.Exit(constBadValue)
 	}
 	if !checkRange(green, constMinColourValue, constMaxColourValue) {
 		fmt.Printf("Green value is invalid!\n")
-		os.Exit(0)
+		os.Exit(constBadValue)
 	}
 	if !checkRange(blue, constMinColourValue, constMaxColourValue) {
 		fmt.Printf("Blue value is invalid!\n")
-		os.Exit(0)
+		os.Exit(constBadValue)
 	}
 
 	//Convert to hex and combine into one string
-	var hexString string = fmt.Sprintf("%02x%02x%02x", red, green, blue)
+	var hexString string = fmt.Sprintf("%02X%02X%02X", red, green, blue)
 
 	//Print the result to the cmd
 	fmt.Printf("\t#%s", hexString)
