@@ -11,59 +11,58 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"math"
 	"os"
 	"strconv"
 )
 
 //Constants
-//MinColourValue = Minimum a colour can be in RGB format
-//MaxColourValue = Maximum a colour can be in RGB format
 //BadArgs = Error code for the wrong number of arguments
 //BadValue = Error code for an invalid R, G, or B value
-const constMinColourValue int = 0
-const constMaxColourValue int = 255
 const constBadArgs int = -1
 const constBadValue int = -2
 
 func main() {
-	//Find argc
-	var argc int = len(os.Args)
-	//If there are too many command line args:
-	if argc != 4 {
-		fmt.Printf("Error! Incorrect number of arguments!\n")
-		fmt.Printf("Usage: toHex <r> <g> <b>\n")
+	//If there are an incorrect amount of command line args:
+	if len(os.Args) != 4 {
+		log.Printf("Error! Incorrect number of arguments!\n")
+		log.Printf("Usage: toHex <r> <g> <b>\n\n")
 		os.Exit(constBadArgs)
 	}
 
 	//Get the cmd arguments and convert to ints
 	//Garbage the error values by assigning them to '_'
-	var red, _ = strconv.Atoi(os.Args[1])
-	var green, _ = strconv.Atoi(os.Args[2])
-	var blue, _ = strconv.Atoi(os.Args[3])
+	red, err := strconv.Atoi(os.Args[1])
+	green, err := strconv.Atoi(os.Args[2])
+	blue, err := strconv.Atoi(os.Args[3])
+
+	//IF the error variable is filled:
+	if err != nil {
+		log.Printf("One of your values is not an integer!\n\n")
+		os.Exit(constBadValue)
+	}
 
 	//Check the ranges of all the inputs
-	//Return an error is any of them are invalid
-	if !checkRange(red, constMinColourValue, constMaxColourValue) {
-		fmt.Printf("Red value is invalid!\n")
+	//Return an error if any of them are invalid
+	if !checkRange(red, 0, math.MaxUint8) {
+		log.Printf("Red value is invalid!\n\n")
 		os.Exit(constBadValue)
 	}
-	if !checkRange(green, constMinColourValue, constMaxColourValue) {
-		fmt.Printf("Green value is invalid!\n")
+	if !checkRange(green, 0, math.MaxUint8) {
+		log.Printf("Green value is invalid!\n\n")
 		os.Exit(constBadValue)
 	}
-	if !checkRange(blue, constMinColourValue, constMaxColourValue) {
-		fmt.Printf("Blue value is invalid!\n")
+	if !checkRange(blue, 0, math.MaxUint8) {
+		log.Printf("Blue value is invalid!\n\n")
 		os.Exit(constBadValue)
 	}
 
 	//Convert to hex and combine into one string
-	var hexString string = fmt.Sprintf("%02X%02X%02X", red, green, blue)
+	hexString := fmt.Sprintf("%02X%02X%02X", red, green, blue)
 
 	//Print the result to the cmd
 	fmt.Printf("\t#%s\n\n", hexString)
-
-	//Exit the program
-	os.Exit(0)
 }
 
 /*
