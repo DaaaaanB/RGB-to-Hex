@@ -60,7 +60,7 @@ func main() {
 	var hexString string = fmt.Sprintf("%02X%02X%02X", red, green, blue)
 
 	//Print the result to the cmd
-	fmt.Printf("\t#%s", hexString)
+	fmt.Printf("\t#%s\n\n", hexString)
 
 	//Exit the program
 	os.Exit(0)
@@ -78,6 +78,4 @@ func main() {
 *	RETURNS			:
 *		bool		: true if in range, false otherwise
  */
-func checkRange(test int, min int, max int) bool {
-	return (min <= test && test <= max)
-}
+func checkRange(test int, min int, max int) bool { return (min <= test && test <= max) }
