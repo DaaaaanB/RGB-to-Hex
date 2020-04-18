@@ -58,11 +58,8 @@ func main() {
 		os.Exit(constBadValue)
 	}
 
-	//Convert to hex and combine into one string
-	hexString := fmt.Sprintf("%02X%02X%02X", red, green, blue)
-
-	//Print the result to the cmd
-	fmt.Printf("\t#%s\n\n", hexString)
+	//Convert to hex and combine into one string and print
+	fmt.Printf("\t#%02X%02X%02X\n\n", red, green, blue)
 }
 
 /*
